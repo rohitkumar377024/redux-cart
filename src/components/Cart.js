@@ -1,28 +1,25 @@
 import React from 'react';
-import { deleteCartItem } from '../actions';
+import CartItem from './CartItem';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({ cart: state.cart });
 
-const Cart = ({ cart, deleteCartItem }) => {
+const Cart = ({ cart }) => {
   return (
     <div>
       <h1 className="text-2xl font-semibold">Cart</h1>
       {cart.map(cartItem => (
-        <div>
-          <hr />
-          <h2 className="text-lg font-medium">{cartItem.name}</h2>
-          <h3 className="font-semibold">₹{cartItem.price}</h3>
-          <button
-            onClick={() => deleteCartItem({ id: cartItem.id })}
-            className="bg-red-500 hover:bg-red-600 text-white px-8 py-2"
-          >
-            Delete
-          </button>
-        </div>
+        <CartItem
+          key={cartItem.id}
+          id={cartItem.id}
+          name={cartItem.name}
+          price={cartItem.price}
+          quantity={cartItem.quantity}
+          total={cartItem.total}
+        />
       ))}
     </div>
   );
 };
 
-export default connect(mapStateToProps, { deleteCartItem })(Cart);
+export default connect(mapStateToProps)(Cart);

@@ -1,4 +1,9 @@
-import { ADD_TO_CART, UPDATE_CART_ITEM, DELETE_CART_ITEM } from '../action-types';
+import {
+  ADD_TO_CART,
+  INCREMENT_ITEM_QUANTITY,
+  DECREMENT_ITEM_QUANTITY,
+  DELETE_CART_ITEM
+} from '../action-types';
 
 const initialState = {
   cart: []
@@ -14,8 +19,42 @@ const rootReducer = (state = initialState, action) => {
           {
             id: action.payload.id,
             name: action.payload.name,
-            price: action.payload.price
+            price: action.payload.price,
+            quantity: 1,
+            total: action.payload.price
           }
+        ]
+      };
+
+    case INCREMENT_ITEM_QUANTITY:
+      return {
+        ...state,
+        cart: [
+          ...state.cart.map(cartItem =>
+            cartItem.id === action.payload.id
+              ? {
+                  ...cartItem,
+                  quantity: cartItem.quantity + 1,
+                  total: cartItem.total + cartItem.price
+                }
+              : cartItem
+          )
+        ]
+      };
+
+    case DECREMENT_ITEM_QUANTITY:
+      return {
+        ...state,
+        cart: [
+          ...state.cart.map(cartItem =>
+            cartItem.id === action.payload.id
+              ? {
+                  ...cartItem,
+                  quantity: cartItem.quantity - 1,
+                  total: cartItem.total - cartItem.price
+                }
+              : cartItem
+          )
         ]
       };
 
