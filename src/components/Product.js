@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { addToCart } from '../actions';
 import { connect } from 'react-redux';
 
@@ -10,7 +10,7 @@ const Product = ({ id, name, price, addToCart }) => {
       <h3 className="font-semibold">₹{price}</h3>
       <button
         onClick={() => addToCart({ id, name, price })}
-        className="bg-red-500 hover:bg-red-600 text-white px-8 py-2"
+        className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-2"
       >
         Add to Cart
       </button>
